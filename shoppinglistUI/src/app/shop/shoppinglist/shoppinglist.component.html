@@ -3,12 +3,14 @@
     <table class="table table-striped" *ngIf="shoppinglist && shoppinglist.length > 0">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Product</th>
                 <th>Quantity</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of shoppinglist">
+                <td>{{ item.id }}</td>
                 <td>{{ item.item }}</td>
                 <td>{{ item.quantity }}</td>
             </tr>

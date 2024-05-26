@@ -1,0 +1,33 @@
+﻿<Properties StartupConfiguration="{D62996BB-B08B-4FA8-B3F6-9DA4E930D224}|https">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Data/ShoppinglistDbContext.cs">
+    <Files>
+      <File FileName="Models/shopping.cs" Line="1" Column="1" />
+      <File FileName="Data/ShoppinglistDbContext.cs" Line="17" Column="1" />
+      <File FileName="appsettings.json" />
+      <File FileName="Program.cs" />
+      <File FileName="WeatherForecast.cs" />
+      <File FileName="Controllers/WeatherForecastController.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="shoppinglistAPI" expanded="True">
+            <Node name="shoppinglistAPI" expanded="True">
+              <Node name="Data" expanded="True">
+                <Node name="ShoppinglistDbContext.cs" selected="True" />
+              </Node>
+              <Node name="Models" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.shoppinglistAPI PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+</Properties>
