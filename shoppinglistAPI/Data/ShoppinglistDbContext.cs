@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using shoppinglistAPI.Models;
 
 namespace shoppinglistAPI.Data
@@ -12,5 +11,11 @@ namespace shoppinglistAPI.Data
         }
 
         public DbSet<Shopping> ShoppingList { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Shopping>().HasKey(e => e.Id);
+        }
     }
 }

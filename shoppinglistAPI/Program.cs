@@ -14,7 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ShoppinglistDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ShoppingListConnectionString")));
+builder.Services.AddDbContext<ShoppinglistDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("ShoppingListConnectionString")));
 
 var app = builder.Build();
 
