@@ -9,14 +9,19 @@ import { ShoppinglistService } from '../../../services/shoppinglist.service';
 })
 export class ShoppinglistComponent implements OnInit {
 
-  shoppinglist: Shoppinglist[] = []; // Initialize as an array
+  shoppinglist: Shoppinglist[] = [];
 
   constructor(private shoppinglistService: ShoppinglistService) { }
 
   ngOnInit(): void {
     this.shoppinglistService.getShoppingList().subscribe({
       next: (data) => {
-        console.log(data);
+        if (Array.isArray(data)) {
+          this.shoppinglist = data as Shoppinglist[];
+        } else {
+          // Handle case where data is not an array
+          console.error("Unexpected data format: ", data);
+        }
       },
       error: (response) => {
         console.log(response);
