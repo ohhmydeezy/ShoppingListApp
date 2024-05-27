@@ -10,28 +10,30 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   styleUrls: ['./shoppinglist.component.css']
 })
 export class ShoppinglistComponent implements OnInit {
-deleteItem(arg0: string) {
-throw new Error('Method not implemented.');
-}
+  deleteItem(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
 
-deleteIcon = faTrash;
-favouriteIcon = faStar;
+  shoppinglist: Shoppinglist[] = [];
 
-shoppinglist: Shoppinglist[] = [];
-MatcheckboxModule: MatCheckboxModule;
+  MatcheckboxModule: MatCheckboxModule;
 
-constructor(private shoppinglistService: ShoppinglistService) {
-  this.MatcheckboxModule = new MatCheckboxModule();
-}
+  constructor(private shoppinglistService: ShoppinglistService) {
+    this.MatcheckboxModule = new MatCheckboxModule();
+  }
 
   ngOnInit(): void {
     this.shoppinglistService.getShoppingList().subscribe({
       next: (data) => {
         this.shoppinglist = data;
+        this.shoppinglist.sort((a, b) => a.item.localeCompare(b.item));
       },
       error: (response) => {
         console.log(response);
       }
     });
   }
+
+
 }
+
