@@ -14,10 +14,26 @@ export class ShoppinglistService {
   constructor(private http: HttpClient) { }
 
   getShoppingList(): Observable<Shoppinglist[]> {
-    return this.http.get<Shoppinglist[]>(this.baseApiUrl + '/api/Shopping/GetShopping');
+    return this.http.get<Shoppinglist[]>(`${this.baseApiUrl}/api/Shopping/GetShopping`);
   }
 
-  addItem(item: Shoppinglist): Observable<Shoppinglist> {
-    return this.http.post<Shoppinglist>(this.baseApiUrl, item);
+  addItem(addItemRequest: Shoppinglist): Observable<Shoppinglist> {
+    addItemRequest.id = '';
+    return this.http.post<Shoppinglist>(this.baseApiUrl + '/api/Shopping', addItemRequest);
   }
+
+  getItem(id: string): Observable<Shoppinglist> {
+    return this.http.get<Shoppinglist>(this.baseApiUrl +'/api/Shopping/' + id);
+  }
+
+  updateItem(id: string, updateItemRequest: Shoppinglist): Observable<Shoppinglist> {
+    return this.http.put<Shoppinglist>(this.baseApiUrl + '/api/Shopping/' + id, updateItemRequest);
+
+  }
+  deleteItem(id: string): Observable<Shoppinglist> {
+    return this.http.delete<Shoppinglist>(this.baseApiUrl + '/api/Shopping/' + id);
+  }
+  // addToFavourite(id: string): Observable<Shoppinglist> {
+  //   return this.http.put<Shoppinglist>(this.baseApiUrl + '/api/Shopping/Favourite/' + id, {});
+  // }
 }

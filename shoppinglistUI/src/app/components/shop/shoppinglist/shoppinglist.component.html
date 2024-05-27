@@ -3,18 +3,24 @@
     <table class="table table-striped" *ngIf="shoppinglist && shoppinglist.length > 0">
         <thead>
             <tr>
-                <th>Id</th>
+                <th> </th>
                 <th>Product</th>
                 <th>Quantity</th>
+                <th> </th>
+                <th> </th>
+                <th> </th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of shoppinglist">
-                <td>{{ item.id }}</td>
+                <td><mat-checkbox></mat-checkbox></td>
                 <td>{{ item.item }}</td>
                 <td>{{ item.quantity }}</td>
+                <td><a [routerLink]="['/shoppinglist', 'editItem', item.id]">Edit</a></td>
+                <button type="button" class="btn btn-danger" (click)="deleteItem(item.id)">Delete</button>
+                <!-- <button type="button" class="btn btn-yellow" (click)="addToFavorite(item.id)">Favorite</button> -->
             </tr>
         </tbody>
     </table>
-    <p *ngIf="!shoppinglist || shoppinglist.length <= 0">No items in the shopping list</p>
+    <p *ngIf="!shoppinglist || shoppinglist.length <= 0">Welcome To MyShopping, Press Add Item Above To Get Started</p>
 </div>

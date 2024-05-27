@@ -6,21 +6,27 @@ import { AppComponent } from './app.component';
 import { ShoppinglistComponent } from './components/shop/shoppinglist/shoppinglist.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AddItemComponent } from './components/add-item/add-item.component';
-import { FormsModule } from '@angular/forms'; // Import the FormsModule
+import { FormsModule } from '@angular/forms';
+import { EditItemComponent } from './components/edit-item/edit-item.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'; // Import the FormsModule
+import { MatCheckbox } from '@angular/material/checkbox';
 @NgModule({
   declarations: [
     AppComponent,
     ShoppinglistComponent,
-    AddItemComponent
+    AddItemComponent,
+    EditItemComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule 
+    FormsModule, 
+    MatCheckbox
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

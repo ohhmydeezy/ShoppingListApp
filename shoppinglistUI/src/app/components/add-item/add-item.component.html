@@ -4,17 +4,15 @@
         <div class="col-6">
             <form #form="ngForm" (ngSubmit)="addItem()">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Item:</label>
-                    <input type="text" class="form-control" id="Item" [(ngModel)] = 
-                    "addItemRequest.item">
+                    <label for="item" class="form-label">Item:</label>
+                    <input type="text" class="form-control" id="item" name="item" [(ngModel)]="addItemRequest.item" required>
                 </div>
                 <div class="mb-3">
-                    <label for="number" class="form-label">Quantity</label>
-                    <input type="number" class="form-control" id="Quantity" [(ngModel)] = "addItemRequest.quantity">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" [(ngModel)]="addItemRequest.quantity" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Add</button>
             </form>
         </div>
     </div>
-
 </div>
