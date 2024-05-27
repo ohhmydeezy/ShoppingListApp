@@ -1,16 +1,14 @@
 <div class="container my-5" *ngIf="shoppinglist && shoppinglist.length > 0">
     <h1>Shopping List</h1>
     <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" [cdkDropListSortingDisabled]="false">
-        <div *ngFor="let item of shoppinglist" cdkDrag class="example-box">
+        <div *ngFor="let item of shoppinglist" cdkDrag class="example-box" [ngClass]="{'important': item.isImportant}">
             <mat-checkbox></mat-checkbox>
             <div>{{ item.item }}</div>
             <div>{{ item.quantity }}</div>
             <div><a [routerLink]="['/shoppinglist', 'editItem', item.id]">Edit</a></div>
             <div>
+                <button type="button" class="btn btn-light" (click)="toggleImportant(item)">Important</button>
                 <button type="button" class="btn btn-danger" (click)="deleteItem(item.id)">Delete</button>
-                <div *ngFor="let item of shoppinglist">
-                    <!-- <button (click)="addToFav(item)" [class.active]="item.isFavourite"><i class="ion-heart"></i></button> -->
-                </div>
             </div>
         </div>
     </div>

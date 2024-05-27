@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Shoppinglist } from '../../../models/shoppinglist.model';
 import { ShoppinglistService } from '../../../services/shoppinglist.service';
-import { moveItemInArray } from '@angular/cdk/drag-drop';
+import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shoppinglist',
@@ -11,7 +12,7 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
 export class ShoppinglistComponent implements OnInit {
   shoppinglist: Shoppinglist[] = [];
 
-  constructor(private shoppinglistService: ShoppinglistService) { }
+  constructor(private shoppinglistService: ShoppinglistService, private router: Router) { }
 
   ngOnInit(): void {
     this.shoppinglistService.getShoppingList().subscribe({
@@ -26,12 +27,34 @@ export class ShoppinglistComponent implements OnInit {
   }
 
   deleteItem(itemId: string): void {
-    // Your delete item logic here
+    this.shoppinglistService. deleteItem(itemId).subscribe({
+      next: () => {
+        this.ngOnInit();
+      },
+      error: (error: any) => {
+        console.error('An error occurred while deleting the item:', error);
+      }
+    });
   }
 
-  drop(event: any): void {
+  drop(event: CdkDragDrop<Shoppinglist[]>): void {
     moveItemInArray(this.shoppinglist, event.previousIndex, event.currentIndex);
   }
+
+  toggleImportant(item: Shoppinglist): void {
+    item.isImportant = !item.isImportant;
+    this.shoppinglistService.updateItem(item.id, item).subscribe({
+      next: () => {
+        this.shoppinglist.sort((a, b) => {
+          if (a.isImportant === b.isImportant) {
+            return a.item.localeCompare(b.item);
+          }
+          return a.isImportant ? -1 : 1;
+        });        
+      },
+      error: (error: any) => {
+        console.error('An error occurred while updating the item:', error);
+      }
+    });
+  }
 }
-
-

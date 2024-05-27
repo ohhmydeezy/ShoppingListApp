@@ -11,3 +11,7 @@
     border: 1px solid #ccc;
     margin-bottom: 8px;
 }
+
+.important {
+    background-color: rgb(255, 191, 0);
+}

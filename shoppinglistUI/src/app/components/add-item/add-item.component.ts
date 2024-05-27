@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Shoppinglist } from '../../models/shoppinglist.model';
+import { AddShoppingList, Shoppinglist } from '../../models/shoppinglist.model';
 import { OnInit } from '@angular/core';
 import { ShoppinglistService } from '../../services/shoppinglist.service';
 import { Router } from '@angular/router';
@@ -11,10 +11,10 @@ import { Router } from '@angular/router';
 })
 export class AddItemComponent implements OnInit{
 
-  addItemRequest: Shoppinglist = {
-    id: '', 
+  addItemRequest: AddShoppingList = { 
     item: '',
     quantity: 0,
+    isImportant: false,
   };
   constructor(private shoppinglistService: ShoppinglistService, private router: Router) { }
 
