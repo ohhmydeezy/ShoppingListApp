@@ -16,12 +16,7 @@ export class ShoppinglistComponent implements OnInit {
   ngOnInit(): void {
     this.shoppinglistService.getShoppingList().subscribe({
       next: (data) => {
-        if (Array.isArray(data)) {
-          this.shoppinglist = data as Shoppinglist[];
-        } else {
-          // Handle case where data is not an array
-          console.error("Unexpected data format: ", data);
-        }
+        this.shoppinglist = data;
       },
       error: (response) => {
         console.log(response);

@@ -1,5 +1,5 @@
 export interface Shoppinglist {
-    Id: number
-    Item: string;
-    Quantity: number;
+    id: number
+    item: string;
+    quantity: number;
 }

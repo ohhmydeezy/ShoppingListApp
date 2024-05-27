@@ -1,25 +1,23 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { Shoppinglist } from '../models/shoppinglist.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppinglistService {
 
-  baseAPIUrl: string = environment.baseAPIUrl;
+  baseApiUrl: string = environment.baseAPIUrl
 
   constructor(private http: HttpClient) { }
 
   getShoppingList(): Observable<Shoppinglist[]> {
-    return this.http.get<Shoppinglist[]>(`${this.baseAPIUrl}/api/Shopping`);
+    return this.http.get<Shoppinglist[]>(this.baseApiUrl + '/api/Shopping/GetShopping');
   }
 
-  
-  addItem(addItemRequest: Shoppinglist): Observable<Shoppinglist> {
-    addItemRequest.Id = 0;
-    return this.http.post<Shoppinglist>(`${this.baseAPIUrl}/api/Shopping`, addItemRequest);
+  addItem(item: Shoppinglist): Observable<Shoppinglist> {
+    return this.http.post<Shoppinglist>(this.baseApiUrl, item);
   }
 }

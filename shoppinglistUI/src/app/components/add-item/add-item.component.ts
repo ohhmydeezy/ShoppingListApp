@@ -11,9 +11,9 @@ import { ShoppinglistService } from '../../services/shoppinglist.service';
 export class AddItemComponent implements OnInit{
 
   addItemRequest: Shoppinglist = {
-    Id: 0, 
-    Item: '',
-    Quantity: 0,
+    id: 0, 
+    item: '',
+    quantity: 0,
   };
   constructor(private shoppinglistService: ShoppinglistService) { }
 
