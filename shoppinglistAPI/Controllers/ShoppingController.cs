@@ -22,20 +22,25 @@ namespace shoppinglistAPI.Controllers
         [Route("GetShopping")]
         public async Task<IActionResult> GetShopping()
         {
-            var shoppingItems = await _shoppinglistDbContext.shopping.ToListAsync();
+            var shoppingItems = await _shoppinglistDbContext.Shopping.ToListAsync();
             return Ok(shoppingItems);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddItem([FromBody] Shopping itemRequest)
+        public async Task<IActionResult> AddItem([FromBody] AddShoppingItem itemRequest)
         {
             if (itemRequest == null)
             {
                 return BadRequest();
             }
+            var shopping = new Shopping
+            {
+                Id = Guid.NewGuid(),
+                Item = itemRequest.Item,
+                Quantity = itemRequest.Quantity
+            };
 
-            itemRequest.Id = Guid.NewGuid();
-            await _shoppinglistDbContext.shopping.AddAsync(itemRequest);
+            await _shoppinglistDbContext.Shopping.AddAsync(shopping);
             await _shoppinglistDbContext.SaveChangesAsync();
 
             return Ok(itemRequest);
@@ -45,7 +50,7 @@ namespace shoppinglistAPI.Controllers
         [Route("{id:Guid}")]
         public async Task<IActionResult> GetShopping([FromRoute] Guid id)
         {
-            var shoppingItem = await _shoppinglistDbContext.shopping.FirstOrDefaultAsync(x => x.Id == id);
+            var shoppingItem = await _shoppinglistDbContext.Shopping.FirstOrDefaultAsync(x => x.Id == id);
 
             if (shoppingItem == null)
             {
@@ -58,7 +63,7 @@ namespace shoppinglistAPI.Controllers
         [Route("{id:Guid}")]
         public async Task<IActionResult> UpdateItem([FromRoute] Guid id, [FromBody] Shopping updateItemRequest)
         {
-            var shoppingItem = await _shoppinglistDbContext.shopping.FindAsync(id);
+            var shoppingItem = await _shoppinglistDbContext.Shopping.FindAsync(id);
 
             if (shoppingItem == null)
             {
@@ -76,15 +81,15 @@ namespace shoppinglistAPI.Controllers
         }
         [HttpDelete]
         [Route("{id:Guid}")]
-        public async Task<IActionResult> deleteItem([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteItem([FromRoute] Guid id)
         {
-            var shoppingItem = await _shoppinglistDbContext.shopping.FindAsync(id);
+            var shoppingItem = await _shoppinglistDbContext.Shopping.FindAsync(id);
 
             if(shoppingItem == null)
             {
                 return NotFound();
             }
-            _shoppinglistDbContext.shopping.Remove(shoppingItem);
+            _shoppinglistDbContext.Shopping.Remove(shoppingItem);
             await _shoppinglistDbContext.SaveChangesAsync();
 
             return Ok();
