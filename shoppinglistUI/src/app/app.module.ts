@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { EditItemComponent } from './components/edit-item/edit-item.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'; // Import the FormsModule
 import { MatCheckbox } from '@angular/material/checkbox';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,8 @@ import { MatCheckbox } from '@angular/material/checkbox';
     AppRoutingModule,
     HttpClientModule,
     FormsModule, 
-    MatCheckbox
+    MatCheckbox,
+    DragDropModule
   ],
   providers: [
     provideClientHydration(),

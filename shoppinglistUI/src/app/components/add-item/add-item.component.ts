@@ -1,27 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Shoppinglist } from '../../models/shoppinglist.model';
+import { OnInit } from '@angular/core';
 import { ShoppinglistService } from '../../services/shoppinglist.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-item',
   templateUrl: './add-item.component.html',
-  styleUrls: ['./add-item.component.css']  // Corrected the property name
+  styleUrl: './add-item.component.css'
 })
-export class AddItemComponent implements OnInit {
+export class AddItemComponent implements OnInit{
 
   addItemRequest: Shoppinglist = {
-    id: '',
+    id: '', 
     item: '',
-    quantity: 0
+    quantity: 0,
   };
-
   constructor(private shoppinglistService: ShoppinglistService, private router: Router) { }
 
   ngOnInit(): void {
   }
-
   addItem() {
-    console.log(this.addItemRequest);
+    this.shoppinglistService.addItem(this.addItemRequest).subscribe({
+      next: (data) => {
+        this.router.navigate(['shoppinglist']);
+      },
+      error: (response) => {
+        console.log(response);
+      }
+    });
   }
 }

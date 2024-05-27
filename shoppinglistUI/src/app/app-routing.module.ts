@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'shoppinglist',
     component: ShoppinglistComponent,
   },
-  { path: 'shoppinglist/Add',
+  { path: 'shoppinglist/AddItem',
   component: AddItemComponent,
   },
   { path: 'shoppinglist/editItem/:id',

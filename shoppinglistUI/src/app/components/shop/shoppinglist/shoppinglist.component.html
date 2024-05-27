@@ -1,26 +1,18 @@
-<div class="container my-5">
+<div class="container my-5" *ngIf="shoppinglist && shoppinglist.length > 0">
     <h1>Shopping List</h1>
-    <table class="table table-striped" *ngIf="shoppinglist && shoppinglist.length > 0">
-        <thead>
-            <tr>
-                <th> </th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th> </th>
-                <th> </th>
-                <th> </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of shoppinglist">
-                <td><mat-checkbox></mat-checkbox></td>
-                <td>{{ item.item }}</td>
-                <td>{{ item.quantity }}</td>
-                <td><a [routerLink]="['/shoppinglist', 'editItem', item.id]">Edit</a></td>
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" [cdkDropListSortingDisabled]="false">
+        <div *ngFor="let item of shoppinglist" cdkDrag class="example-box">
+            <mat-checkbox></mat-checkbox>
+            <div>{{ item.item }}</div>
+            <div>{{ item.quantity }}</div>
+            <div><a [routerLink]="['/shoppinglist', 'editItem', item.id]">Edit</a></div>
+            <div>
                 <button type="button" class="btn btn-danger" (click)="deleteItem(item.id)">Delete</button>
-                <!-- <button type="button" class="btn btn-yellow" (click)="addToFavorite(item.id)">Favorite</button> -->
-            </tr>
-        </tbody>
-    </table>
+                <div *ngFor="let item of shoppinglist">
+                    <!-- <button (click)="addToFav(item)" [class.active]="item.isFavourite"><i class="ion-heart"></i></button> -->
+                </div>
+            </div>
+        </div>
+    </div>
     <p *ngIf="!shoppinglist || shoppinglist.length <= 0">Welcome To MyShopping, Press Add Item Above To Get Started</p>
 </div>

@@ -1,0 +1,13 @@
+.example-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.example-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 8px;
+}

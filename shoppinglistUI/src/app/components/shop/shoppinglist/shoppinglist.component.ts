@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Shoppinglist } from '../../../models/shoppinglist.model';
 import { ShoppinglistService } from '../../../services/shoppinglist.service';
-import { faTrash, faStar } from '@fortawesome/free-solid-svg-icons';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-shoppinglist',
@@ -10,17 +9,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   styleUrls: ['./shoppinglist.component.css']
 })
 export class ShoppinglistComponent implements OnInit {
-  deleteItem(arg0: string) {
-    throw new Error('Method not implemented.');
-  }
-
   shoppinglist: Shoppinglist[] = [];
 
-  MatcheckboxModule: MatCheckboxModule;
-
-  constructor(private shoppinglistService: ShoppinglistService) {
-    this.MatcheckboxModule = new MatCheckboxModule();
-  }
+  constructor(private shoppinglistService: ShoppinglistService) { }
 
   ngOnInit(): void {
     this.shoppinglistService.getShoppingList().subscribe({
@@ -34,6 +25,13 @@ export class ShoppinglistComponent implements OnInit {
     });
   }
 
+  deleteItem(itemId: string): void {
+    // Your delete item logic here
+  }
 
+  drop(event: any): void {
+    moveItemInArray(this.shoppinglist, event.previousIndex, event.currentIndex);
+  }
 }
+
 
