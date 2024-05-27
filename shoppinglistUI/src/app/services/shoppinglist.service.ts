@@ -13,7 +13,13 @@ export class ShoppinglistService {
 
   constructor(private http: HttpClient) { }
 
-  getShoppingList(): Observable<Shoppinglist> {
-    return this.http.get<Shoppinglist>(`${this.baseAPIUrl}/api/ShoppingList`);
+  getShoppingList(): Observable<Shoppinglist[]> {
+    return this.http.get<Shoppinglist[]>(`${this.baseAPIUrl}/api/Shopping`);
+  }
+
+  
+  addItem(addItemRequest: Shoppinglist): Observable<Shoppinglist> {
+    addItemRequest.Id = 0;
+    return this.http.post<Shoppinglist>(`${this.baseAPIUrl}/api/Shopping`, addItemRequest);
   }
 }

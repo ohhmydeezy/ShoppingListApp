@@ -10,7 +10,7 @@ namespace shoppinglistAPI.Data
         {
         }
 
-        public DbSet<Shopping> ShoppingList { get; set; }
+        public DbSet<Shopping> shopping { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

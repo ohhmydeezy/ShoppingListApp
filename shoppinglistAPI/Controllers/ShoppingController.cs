@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using shoppinglistAPI.Data;
 using shoppinglistAPI.Models;
-using System;
-using System.Threading.Tasks;
 
 namespace shoppinglistAPI.Controllers
 {
@@ -19,17 +17,23 @@ namespace shoppinglistAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllShopping()
+        [Route("GetShopping")]
+        public async Task<IActionResult> GetShopping()
         {
-            var shoppingItems = await _shoppinglistDbContext.ShoppingList.ToListAsync();
+            var shoppingItems = await _shoppinglistDbContext.shopping.ToListAsync();
             return Ok(shoppingItems);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddItem([FromBody] Shopping itemRequest)
         {
+            if (itemRequest == null)
+            {
+                return BadRequest();
+            }
+
             itemRequest.Id = Guid.NewGuid();
-            await _shoppinglistDbContext.ShoppingList.AddAsync(itemRequest);
+            await _shoppinglistDbContext.shopping.AddAsync(itemRequest);
             await _shoppinglistDbContext.SaveChangesAsync();
 
             return Ok(itemRequest);

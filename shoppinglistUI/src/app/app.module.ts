@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { ShoppinglistComponent } from './components/shop/shoppinglist/shoppinglist.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AddItemComponent } from './components/add-item/add-item.component';
-
+import { FormsModule } from '@angular/forms'; // Import the FormsModule
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +16,8 @@ import { AddItemComponent } from './components/add-item/add-item.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule 
   ],
   providers: [
     provideClientHydration()
