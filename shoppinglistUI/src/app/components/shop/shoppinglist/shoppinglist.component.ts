@@ -11,14 +11,16 @@ import { Router } from '@angular/router';
 })
 export class ShoppinglistComponent implements OnInit {
   shoppinglist: Shoppinglist[] = [];
+  boughtList: Shoppinglist[] = [];
 
   constructor(private shoppinglistService: ShoppinglistService, private router: Router) { }
 
   ngOnInit(): void {
     this.shoppinglistService.getShoppingList().subscribe({
       next: (data) => {
-        this.shoppinglist = data;
-        this.shoppinglist.sort((a, b) => a.item.localeCompare(b.item));
+        this.shoppinglist = data.filter(item => !item.isBought);
+        this.boughtList = data.filter(item => item.isBought);
+        this.sortShoppingList();
       },
       error: (response) => {
         console.log(response);
@@ -27,34 +29,71 @@ export class ShoppinglistComponent implements OnInit {
   }
 
   deleteItem(itemId: string): void {
-    this.shoppinglistService. deleteItem(itemId).subscribe({
+    this.shoppinglistService.deleteItem(itemId).subscribe({
       next: () => {
         this.ngOnInit();
       },
-      error: (error: any) => {
+      error: (error) => {
         console.error('An error occurred while deleting the item:', error);
       }
     });
   }
 
   drop(event: CdkDragDrop<Shoppinglist[]>): void {
-    moveItemInArray(this.shoppinglist, event.previousIndex, event.currentIndex);
+    const movedItem = this.shoppinglist[event.previousIndex];
+
+    // Find the first non-important item index
+    const firstNonImportantIndex = this.shoppinglist.findIndex(item => !item.isImportant);
+
+    // Determine the allowed range for the move
+    const minIndex = movedItem.isImportant ? 0 : firstNonImportantIndex;
+    const maxIndex = this.shoppinglist.length - 1;
+
+    // Check if the new position is within the allowed range
+    if (event.currentIndex >= minIndex && event.currentIndex <= maxIndex) {
+      moveItemInArray(this.shoppinglist, event.previousIndex, event.currentIndex);
+    }
+
   }
 
   toggleImportant(item: Shoppinglist): void {
     item.isImportant = !item.isImportant;
     this.shoppinglistService.updateItem(item.id, item).subscribe({
       next: () => {
-        this.shoppinglist.sort((a, b) => {
-          if (a.isImportant === b.isImportant) {
-            return a.item.localeCompare(b.item);
-          }
-          return a.isImportant ? -1 : 1;
-        });        
+        this.sortShoppingList();
+      },
+      error: (error) => {
+        console.error('An error occurred while updating the item:', error);
+      }
+    });
+  }
+
+  markAsBought(item: Shoppinglist): void {
+    item.isBought = true;
+    this.shoppinglistService.updateItem(item.id, item).subscribe({
+      next: () => {
+        this.ngOnInit();
       },
       error: (error: any) => {
         console.error('An error occurred while updating the item:', error);
       }
     });
   }
+
+  private sortShoppingList(): void {
+    this.shoppinglist.sort((a, b) => {
+      if (a.isImportant === b.isImportant) {
+        return a.item.localeCompare(b.item);
+      }
+      return a.isImportant ? -1 : 1;
+    });
+
+    this.boughtList.sort((a, b) => {
+      if (a.isImportant === b.isImportant) {
+        return a.item.localeCompare(b.item);
+      }
+      return a.isImportant ? -1 : 1;
+    });
+  }
 }
+

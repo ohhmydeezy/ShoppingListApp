@@ -1,5 +1,5 @@
 <div class="container my-5" *ngIf="shoppinglist && shoppinglist.length > 0">
-    <h1>Shopping List</h1>
+    <h1>To Buy List</h1>
     <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" [cdkDropListSortingDisabled]="false">
         <div *ngFor="let item of shoppinglist" cdkDrag class="example-box" [ngClass]="{'important': item.isImportant}">
             <mat-checkbox></mat-checkbox>
@@ -14,3 +14,9 @@
     </div>
     <p *ngIf="!shoppinglist || shoppinglist.length <= 0">Welcome To MyShopping, Press Add Item Above To Get Started</p>
 </div>
+
+<div class="container my-5" *ngIf="boughtList && boughtList.length > 0">
+    <h1>Previously Bought Items</h1>
+    <div class="example-list">
+      <div *ngFor="let item of boughtList" class="example-box" [ngClass]="{'important': item.isImportant}">
+        <mat-checkbox checked disabled></mat-checkbox>
