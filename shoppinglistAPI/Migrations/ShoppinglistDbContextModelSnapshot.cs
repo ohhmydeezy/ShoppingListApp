@@ -31,12 +31,12 @@ namespace shoppinglistAPI.Migrations
                     b.Property<string>("Item")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("Quantity")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ShoppingList");
+                    b.ToTable("Shopping");
                 });
 #pragma warning restore 612, 618
         }

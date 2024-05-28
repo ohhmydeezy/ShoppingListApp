@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class ShoppinglistComponent implements OnInit {
   shoppinglist: Shoppinglist[] = [];
   boughtList: Shoppinglist[] = [];
+  selection: any;
 
   constructor(private shoppinglistService: ShoppinglistService, private router: Router) { }
 
@@ -73,12 +74,15 @@ export class ShoppinglistComponent implements OnInit {
     this.shoppinglistService.updateItem(item.id, item).subscribe({
       next: () => {
         this.ngOnInit();
+        this.selection.clear()
       },
       error: (error: any) => {
         console.error('An error occurred while updating the item:', error);
       }
     });
   }
+
+  // Sort the shopping list and the bought list
 
   private sortShoppingList(): void {
     this.shoppinglist.sort((a, b) => {

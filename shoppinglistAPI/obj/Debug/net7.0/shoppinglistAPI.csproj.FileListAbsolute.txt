@@ -264,7 +264,8 @@
 /Users/ohhmydeezy/bootcamp/Projects/ShoppingListApp/shoppinglistAPI/bin/Debug/net7.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/ohhmydeezy/bootcamp/Projects/ShoppingListApp/shoppinglistAPI/bin/Debug/net7.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/ohhmydeezy/bootcamp/Projects/ShoppingListApp/shoppinglistAPI/bin/Debug/net7.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
-/Users/ohhmydeezy/bootcamp/Projects/ShoppingListApp/shoppinglistAPI/obj/Debug/net7.0/shoppinglistAPI.csproj.CopyComplete
 /Users/ohhmydeezy/bootcamp/Projects/ShoppingListApp/shoppinglistAPI/bin/Debug/net7.0/Microsoft.AspNetCore.JsonPatch.dll
 /Users/ohhmydeezy/bootcamp/Projects/ShoppingListApp/shoppinglistAPI/bin/Debug/net7.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 /Users/ohhmydeezy/bootcamp/Projects/ShoppingListApp/shoppinglistAPI/bin/Debug/net7.0/Newtonsoft.Json.Bson.dll
+/Users/ohhmydeezy/bootcamp/Projects/ShoppingListApp/shoppinglistAPI/obj/Debug/net7.0/shoppinglistAPI.sourcelink.json
+/Users/ohhmydeezy/bootcamp/Projects/ShoppingListApp/shoppinglistAPI/obj/Debug/net7.0/shopping.81531A96.Up2Date
