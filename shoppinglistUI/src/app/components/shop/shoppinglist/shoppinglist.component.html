@@ -14,11 +14,13 @@
     </div>
 </div>
 <div class="container my-5" *ngIf="boughtList && boughtList.length > 0">
-    <h1>Previously Bought Items</h1>
-    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" [cdkDropListSortingDisabled]="false">
-        <div *ngFor="let item of boughtList; let i = index" cdkDrag class="example-box" [ngClass]="{'important': item.isImportant}">
-            <mat-checkbox checked disabled></mat-checkbox>
-            <div>{{ item.item }}</div>
+    <div class="container my-5">
+        <h1>Previously Bought Items</h1>
+        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" [cdkDropListSortingDisabled]="false">
+            <div *ngFor="let item of boughtList; let i = index" cdkDrag class="example-box" [ngClass]="{'important': item.isImportant}">
+                <mat-checkbox checked disabled></mat-checkbox>
+                <div>{{ item.item }}</div>
+            </div>
         </div>
     </div>
 </div>

@@ -71,10 +71,14 @@ export class ShoppinglistComponent implements OnInit {
 
   markAsBought(item: Shoppinglist): void {
     item.isBought = true;
+    item.isImportant = false;
     this.shoppinglistService.updateItem(item.id, item).subscribe({
       next: () => {
-        this.ngOnInit();
-        this.selection.clear()
+      // Remove the item from the shoppinglist array
+      this.shoppinglist = this.shoppinglist.filter(shoppingItem => shoppingItem.id !== item.id);
+      // Add the item to the boughtList array
+      this.boughtList.push(item);
+        console.log('Item marked as bought');
       },
       error: (error: any) => {
         console.error('An error occurred while updating the item:', error);
