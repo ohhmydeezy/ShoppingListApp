@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/ohhmydeezy/bootcamp/Projects/ShoppingListApp/shoppinglistAPI/shoppinglistAPI.csproj": {}
+    "/Users/ohhmydeezy/bootcamp/ShoppingListApp/shoppinglistAPI/shoppinglistAPI.csproj": {}
   },
   "projects": {
-    "/Users/ohhmydeezy/bootcamp/Projects/ShoppingListApp/shoppinglistAPI/shoppinglistAPI.csproj": {
+    "/Users/ohhmydeezy/bootcamp/ShoppingListApp/shoppinglistAPI/shoppinglistAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/ohhmydeezy/bootcamp/Projects/ShoppingListApp/shoppinglistAPI/shoppinglistAPI.csproj",
+        "projectUniqueName": "/Users/ohhmydeezy/bootcamp/ShoppingListApp/shoppinglistAPI/shoppinglistAPI.csproj",
         "projectName": "shoppinglistAPI",
-        "projectPath": "/Users/ohhmydeezy/bootcamp/Projects/ShoppingListApp/shoppinglistAPI/shoppinglistAPI.csproj",
+        "projectPath": "/Users/ohhmydeezy/bootcamp/ShoppingListApp/shoppinglistAPI/shoppinglistAPI.csproj",
         "packagesPath": "/Users/ohhmydeezy/.nuget/packages/",
-        "outputPath": "/Users/ohhmydeezy/bootcamp/Projects/ShoppingListApp/shoppinglistAPI/obj/",
+        "outputPath": "/Users/ohhmydeezy/bootcamp/ShoppingListApp/shoppinglistAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/ohhmydeezy/.nuget/NuGet/NuGet.Config"
