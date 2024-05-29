@@ -1,7 +1,0 @@
-{
-  "routes": [
-    "/",
-    "/shoppinglist",
-    "/shoppinglist/AddItem"
-  ]
-}
