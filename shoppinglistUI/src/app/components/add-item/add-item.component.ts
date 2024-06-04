@@ -14,6 +14,7 @@ export class AddItemComponent implements OnInit{
   addItemRequest: AddShoppingList = { 
     item: '',
     quantity: 0,
+    isBought: false,
     isImportant: false,
   };
   constructor(private shoppinglistService: ShoppinglistService, private router: Router) { }

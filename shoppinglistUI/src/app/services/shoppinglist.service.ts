@@ -8,11 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ShoppinglistService {
-  updateShoppingListItem(item: Shoppinglist) {
-    throw new Error('Method not implemented.');
-  }
-
-  baseApiUrl: string = environment.baseAPIUrl
+  baseApiUrl: string = environment.baseAPIUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -21,19 +17,18 @@ export class ShoppinglistService {
   }
 
   addItem(addItemRequest: AddShoppingList): Observable<AddShoppingList> {
-    return this.http.post<AddShoppingList>(this.baseApiUrl + '/api/Shopping', addItemRequest);
+    return this.http.post<AddShoppingList>(`${this.baseApiUrl}/api/Shopping`, addItemRequest);
   }
 
   getItem(id: string): Observable<Shoppinglist> {
-    return this.http.get<Shoppinglist>(this.baseApiUrl +'/api/Shopping/' + id);
+    return this.http.get<Shoppinglist>(`${this.baseApiUrl}/api/Shopping/${id}`);
   }
 
   updateItem(id: string, updateItemRequest: Shoppinglist): Observable<Shoppinglist> {
-    return this.http.put<Shoppinglist>(this.baseApiUrl + '/api/Shopping/' + id, updateItemRequest);
-
-  }
-  deleteItem(id: string): Observable<Shoppinglist> {
-    return this.http.delete<Shoppinglist>(this.baseApiUrl + '/api/Shopping/' + id);
+    return this.http.put<Shoppinglist>(`${this.baseApiUrl}/api/Shopping/${id}`, updateItemRequest);
   }
 
+  deleteItem(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseApiUrl}/api/Shopping/${id}`);
+  }
 }
