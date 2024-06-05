@@ -44,27 +44,69 @@ export class ShoppinglistComponent implements OnInit {
     if (event.previousContainer === event.container) {
       // Moving within the same list
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      this.sortShoppingList(); // Sort the list after moving within the same list
     } else {
       // Moving between lists
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
+      const movedItem = event.previousContainer.data[event.previousIndex];
+      const targetList = event.container.data;
   
-      // Update isBought property accordingly and persist changes
-      const movedItem = event.container.data[event.currentIndex];
-      movedItem.isBought = (event.container.id === 'boughtList');
+      // Check if an item with the same name exists in the target list
+      const existingItem = targetList.find(item => item.item === movedItem.item);
   
-      this.shoppinglistService.updateItem(movedItem.id, movedItem).subscribe(
-        updatedItem => {
-          console.log('Item successfully updated:', updatedItem);
-        },
-        error => {
-          console.error('Error updating item:', error);
+      if (existingItem) {
+        // Increment the quantity of the existing item
+        existingItem.quantity += movedItem.quantity;
+  
+        // Remove the moved item from the original list
+        event.previousContainer.data.splice(event.previousIndex, 1);
+  
+        // Persist the changes for the existing item
+        this.shoppinglistService.updateItem(existingItem.id, existingItem).subscribe(
+          updatedItem => {
+            console.log('Item successfully updated:', updatedItem);
+          },
+          error => {
+            console.error('Error updating item:', error);
+          }
+        );
+  
+        // Optionally, remove the moved item from the backend if needed
+        this.shoppinglistService.deleteItem(movedItem.id).subscribe(
+          () => {
+            console.log('Item successfully deleted:', movedItem);
+          },
+          error => {
+            console.error('Error deleting item:', error);
+          }
+        );
+      } else {
+        // No existing item found, move the item to the new list
+        transferArrayItem(event.previousContainer.data,
+                          event.container.data,
+                          event.previousIndex,
+                          event.currentIndex);
+  
+        // Update isBought property and isImportant property accordingly and persist changes
+        movedItem.isBought = (event.container.id === 'boughtList');
+        if (movedItem.isBought) {
+          movedItem.isImportant = false; // Ensure isImportant is false for bought items
         }
-      );
+  
+        this.shoppinglistService.updateItem(movedItem.id, movedItem).subscribe(
+          updatedItem => {
+            console.log('Item successfully updated:', updatedItem);
+          },
+          error => {
+            console.error('Error updating item:', error);
+          }
+        );
+      }
+  
+      // Sort both lists after moving between lists
+      this.sortShoppingList();
     }
   }
+  
 
   toggleImportant(item: Shoppinglist): void {
     item.isImportant = !item.isImportant;
