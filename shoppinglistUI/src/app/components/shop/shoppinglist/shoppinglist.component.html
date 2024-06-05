@@ -1,8 +1,10 @@
 <div cdkDropListGroup>
     <div class="example-container">
         <h2>To Buy</h2>
-        <div cdkDropList id="shoppinglist" [cdkDropListConnectedTo]="['boughtList']" [cdkDropListData]="shoppinglist" class="example-list" cdkDropListSortingDisabled (cdkDropListDropped)="drop($event)">
-            <div *ngFor="let item of shoppinglist, let i = index" cdkDrag class="example-box" [ngClass]="{'important': item.isImportant}">
+        <div cdkDropList id="shoppinglist" [cdkDropListConnectedTo]="['boughtList']" [cdkDropListData]="shoppinglist"
+            class="example-list" (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let item of shoppinglist; let i = index" cdkDrag class="example-box"
+                [ngClass]="{'important': item.isImportant}">
                 <button type="button" class="btn btn-success" (click)="markAsBought(item)">Bought</button>
                 <div>{{ item.item }}</div>
                 <div>{{ item.quantity }}</div>
@@ -17,8 +19,10 @@
 
     <div class="example-container">
         <h2>Previously Bought Items</h2>
-        <div cdkDropList id="boughtList" [cdkDropListConnectedTo]="['shoppinglist']" [cdkDropListData]="boughtList" class="example-list" (cdkDropListDropped)="drop($event)">
-            <div *ngFor="let item of boughtList; let i = index" cdkDrag class="example-box" [ngClass]="{'important': item.isImportant}">
+        <div cdkDropList id="boughtList" [cdkDropListConnectedTo]="['shoppinglist']" [cdkDropListData]="boughtList"
+            class="example-list" (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let item of boughtList; let i = index" cdkDrag class="example-box"
+                [ngClass]="{'important': item.isImportant}">
                 <mat-checkbox checked disabled></mat-checkbox>
                 <div>{{ item.item }}</div>
             </div>
@@ -27,4 +31,3 @@
 </div>
 
 <p *ngIf="!shoppinglist || shoppinglist.length <= 0">Welcome To MyShopping, Press Add Item Above To Get Started</p>
-

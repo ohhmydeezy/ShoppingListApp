@@ -42,27 +42,27 @@ export class ShoppinglistComponent implements OnInit {
 
   drop(event: CdkDragDrop<Shoppinglist[]>): void {
     if (event.previousContainer === event.container) {
-        // Moving within the same list
-        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      // Moving within the same list
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-        // Moving between lists
-        transferArrayItem(event.previousContainer.data,
-                          event.container.data,
-                          event.previousIndex,
-                          event.currentIndex);
-
-        // Update isBought property accordingly and persist changes
-        const movedItem = event.container.data[event.currentIndex];
-        movedItem.isBought = (event.container.id === 'boughtList');
-
-        this.shoppinglistService.updateItem(movedItem.id, movedItem).subscribe(
-            updatedItem => {
-                console.log('Item successfully updated:', updatedItem);
-            },
-            error => {
-                console.error('Error updating item:', error);
-            }
-        );
+      // Moving between lists
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+  
+      // Update isBought property accordingly and persist changes
+      const movedItem = event.container.data[event.currentIndex];
+      movedItem.isBought = (event.container.id === 'boughtList');
+  
+      this.shoppinglistService.updateItem(movedItem.id, movedItem).subscribe(
+        updatedItem => {
+          console.log('Item successfully updated:', updatedItem);
+        },
+        error => {
+          console.error('Error updating item:', error);
+        }
+      );
     }
   }
 
