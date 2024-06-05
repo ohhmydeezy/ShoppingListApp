@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Shoppinglist } from '../../../models/shoppinglist.model';
 import { ShoppinglistService } from '../../../services/shoppinglist.service';
-import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { moveItemInArray, transferArrayItem, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
 
 @Component({
@@ -41,20 +41,29 @@ export class ShoppinglistComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Shoppinglist[]>): void {
-    const movedItem = this.shoppinglist[event.previousIndex];
+    if (event.previousContainer === event.container) {
+        // Moving within the same list
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+        // Moving between lists
+        transferArrayItem(event.previousContainer.data,
+                          event.container.data,
+                          event.previousIndex,
+                          event.currentIndex);
 
-    // Find the first non-important item index
-    const firstNonImportantIndex = this.shoppinglist.findIndex(item => !item.isImportant);
+        // Update isBought property accordingly and persist changes
+        const movedItem = event.container.data[event.currentIndex];
+        movedItem.isBought = (event.container.id === 'boughtList');
 
-    // Determine the allowed range for the move
-    const minIndex = movedItem.isImportant ? 0 : firstNonImportantIndex;
-    const maxIndex = this.shoppinglist.length - 1;
-
-    // Check if the new position is within the allowed range
-    if (event.currentIndex >= minIndex && event.currentIndex <= maxIndex) {
-      moveItemInArray(this.shoppinglist, event.previousIndex, event.currentIndex);
+        this.shoppinglistService.updateItem(movedItem.id, movedItem).subscribe(
+            updatedItem => {
+                console.log('Item successfully updated:', updatedItem);
+            },
+            error => {
+                console.error('Error updating item:', error);
+            }
+        );
     }
-
   }
 
   toggleImportant(item: Shoppinglist): void {
@@ -74,10 +83,10 @@ export class ShoppinglistComponent implements OnInit {
     item.isImportant = false;
     this.shoppinglistService.updateItem(item.id, item).subscribe({
       next: () => {
-      // Remove the item from the shoppinglist array
-      this.shoppinglist = this.shoppinglist.filter(shoppingItem => shoppingItem.id !== item.id);
-      // Add the item to the boughtList array
-      this.boughtList.push(item);
+        // Remove the item from the shoppinglist array
+        this.shoppinglist = this.shoppinglist.filter(shoppingItem => shoppingItem.id !== item.id);
+        // Add the item to the boughtList array
+        this.boughtList.push(item);
         console.log('Item marked as bought');
       },
       error: (error: any) => {
@@ -85,8 +94,6 @@ export class ShoppinglistComponent implements OnInit {
       }
     });
   }
-
-  // Sort the shopping list and the bought list
 
   private sortShoppingList(): void {
     this.shoppinglist.sort((a, b) => {
@@ -104,4 +111,3 @@ export class ShoppinglistComponent implements OnInit {
     });
   }
 }
-

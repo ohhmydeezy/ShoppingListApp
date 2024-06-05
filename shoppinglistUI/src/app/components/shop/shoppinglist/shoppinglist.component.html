@@ -1,22 +1,23 @@
-<div class="container my-5" *ngIf="shoppinglist && shoppinglist.length > 0">
-    <h1>To Buy List</h1>
-    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" [cdkDropListSortingDisabled]="false">
-        <div *ngFor="let item of shoppinglist" cdkDrag class="example-box" [ngClass]="{'important': item.isImportant}">
-            <button type="button" class="btn btn-success" (click)="markAsBought(item)">Bought</button>
-            <div>{{ item.item }}</div>
-            <div>{{ item.quantity }}</div>
-            <div><a [routerLink]="['/shoppinglist', 'editItem', item.id]">Edit</a></div>
-            <div>
-                <button type="button" class="btn btn-light" (click)="toggleImportant(item)">Important</button>
-                <button type="button" class="btn btn-danger" (click)="deleteItem(item.id)">Delete</button>
+<div cdkDropListGroup>
+    <div class="example-container">
+        <h2>To Buy</h2>
+        <div cdkDropList id="shoppinglist" [cdkDropListConnectedTo]="['boughtList']" [cdkDropListData]="shoppinglist" class="example-list" cdkDropListSortingDisabled (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let item of shoppinglist, let i = index" cdkDrag class="example-box" [ngClass]="{'important': item.isImportant}">
+                <button type="button" class="btn btn-success" (click)="markAsBought(item)">Bought</button>
+                <div>{{ item.item }}</div>
+                <div>{{ item.quantity }}</div>
+                <div><a [routerLink]="['/shoppinglist', 'editItem', item.id]">Edit</a></div>
+                <div>
+                    <button type="button" class="btn btn-light" (click)="toggleImportant(item)">Important</button>
+                    <button type="button" class="btn btn-danger" (click)="deleteItem(item.id)">Delete</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="container my-5" *ngIf="boughtList && boughtList.length > 0">
-    <div class="container my-5">
-        <h1>Previously Bought Items</h1>
-        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" [cdkDropListSortingDisabled]="false">
+
+    <div class="example-container">
+        <h2>Previously Bought Items</h2>
+        <div cdkDropList id="boughtList" [cdkDropListConnectedTo]="['shoppinglist']" [cdkDropListData]="boughtList" class="example-list" (cdkDropListDropped)="drop($event)">
             <div *ngFor="let item of boughtList; let i = index" cdkDrag class="example-box" [ngClass]="{'important': item.isImportant}">
                 <mat-checkbox checked disabled></mat-checkbox>
                 <div>{{ item.item }}</div>
@@ -24,4 +25,6 @@
         </div>
     </div>
 </div>
+
 <p *ngIf="!shoppinglist || shoppinglist.length <= 0">Welcome To MyShopping, Press Add Item Above To Get Started</p>
+
