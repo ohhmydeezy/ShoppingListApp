@@ -15,3 +15,9 @@
 .important {
     background-color: rgb(255, 191, 0);
 }
+
+h2 {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 2em;
+}

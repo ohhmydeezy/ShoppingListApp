@@ -55,7 +55,7 @@ export class ShoppinglistComponent implements OnInit {
   
       if (existingItem) {
         // Increment the quantity of the existing item
-        existingItem.quantity += movedItem.quantity;
+        existingItem.quantity++;
   
         // Remove the moved item from the original list
         event.previousContainer.data.splice(event.previousIndex, 1);
@@ -70,7 +70,7 @@ export class ShoppinglistComponent implements OnInit {
           }
         );
   
-        // Optionally, remove the moved item from the backend if needed
+        //  Remove the moved item from the backend
         this.shoppinglistService.deleteItem(movedItem.id).subscribe(
           () => {
             console.log('Item successfully deleted:', movedItem);
